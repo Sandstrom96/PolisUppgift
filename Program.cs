@@ -8,6 +8,7 @@ class Program
 
         while (IsRunning)
         {
+            Console.WriteLine("Hello World!");
             Console.WriteLine("1. Lägg till rapport");
             Console.WriteLine("2. Visa lista över rapporter");
             Console.WriteLine("3. Visa fullständig info om rapport");
