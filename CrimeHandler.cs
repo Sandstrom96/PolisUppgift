@@ -22,18 +22,11 @@ static class CrimeHandler
         Console.Write("Ange tid i formatet(YYYY-MM-DD HH:MM): ");
         DateTime dateTime = DateTime.Parse(Console.ReadLine());
         Console.WriteLine("Vilka deltog?");
-        string officer = Console.ReadLine();
+        string officer = "-";
         while (isRunning)
         {
-            Console.WriteLine("Var fler på plats? [J]a/[N]ej");
-            if (Console.ReadLine().ToLower() == "n")
-            {
-                isRunning = false;
-            }
-            else if(Console.ReadLine().ToLower() == "j")
-            {
-                officer = Console.ReadLine();
-            }
+            officer = EmployeeHandler.ChooseEmployee();
+            isRunning = false;
         }
         
         responses.Add(new EmergencyResponse(crime, place, dateTime, officer));
