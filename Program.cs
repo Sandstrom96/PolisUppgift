@@ -8,24 +8,27 @@ class Program
 
         while (IsRunning)
         {
-            Console.WriteLine("1. Lägg till rapport");
-            Console.WriteLine("2. Visa lista över rapporter");
-            Console.WriteLine("3. Visa fullständig info om rapport");
+            Console.WriteLine("1. Registrering av utryckningar");
+            Console.WriteLine("2. Rapporter");
+            Console.WriteLine("3. Personal");
             Console.WriteLine("4. Avsluta");
             string choice = Console.ReadLine(); 
 
             switch(choice)
             {
                 case "1": 
-                Reporthandler.AddReport();
+                Console.Clear();
+                CrimeHandler.PrintResponses();
                 break;
 
                 case "2":
-                Reporthandler.PrintReports();
+                Console.Clear();
+                MainReports.MenuReports();
                 break;
 
                 case "3":
-                Reporthandler.Printinforeport();
+                Console.Clear();
+                MainEmployeehandler.MenuEmployee(); 
                 break; 
 
                 case "4":

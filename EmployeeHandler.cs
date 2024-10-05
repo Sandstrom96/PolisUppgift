@@ -1,4 +1,5 @@
 using System.ComponentModel.Design;
+using System.Xml.Serialization;
 using Microsoft.VisualBasic;
 
 static class EmployeeHandler
@@ -50,5 +51,44 @@ class Employee
         this.firstName = firstName;
         this.lastName = lastName;
         this.employeeNumber = employeeNumber;
+    }
+}
+public class MainEmployeehandler 
+{
+    public static void MenuEmployee()
+    {
+        bool IsRunning = true; 
+
+        while (IsRunning)
+        {
+            Console.WriteLine("1. Lägg till en ny anställd");
+            Console.WriteLine("2. Visa alla anställda"); 
+            Console.WriteLine("3. Visa info om anställd");
+            string choice = Console.ReadLine();
+
+            switch (choice)
+            {
+                case "1": 
+                EmployeeHandler.AddEmployee();
+                break;
+                
+                case "2":
+                EmployeeHandler.ListEmployees();
+                break;
+
+                case "3": 
+                EmployeeHandler.ChooseEmployee();
+                break;
+
+                case "4":
+                IsRunning = false; 
+                break;
+
+                default:
+                Console.Clear();
+                Console.WriteLine("Fel val");
+                continue;
+            }
+        }
     }
 }
