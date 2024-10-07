@@ -8,9 +8,10 @@ class Program
 
         while (IsRunning)
         {
-            Console.WriteLine("1. Registrering av utryckningar");
+            Console.WriteLine("1. Utryckningar");
             Console.WriteLine("2. Rapporter");
             Console.WriteLine("3. Personal");
+            Console.WriteLine("5. Skriv ut utryckning med rapport");
             Console.WriteLine("4. Avsluta");
             string choice = Console.ReadLine(); 
 
@@ -33,6 +34,12 @@ class Program
 
                 case "4":
                 IsRunning = false;
+                break;
+
+                case "5":
+                CrimeHandler.AddCrime();
+                Console.WriteLine("Lägg till rapport");
+                //Reporthandler.AddReport();
                 break;
 
                 default: 

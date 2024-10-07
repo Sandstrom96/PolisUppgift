@@ -22,14 +22,17 @@ static class CrimeHandler
         Console.Write("Ange tid i formatet(YYYY-MM-DD HH:MM): ");
         DateTime dateTime = DateTime.Parse(Console.ReadLine());
         Console.WriteLine("Vilka deltog?");
-        string officer = "-";
+        string officer = "";
+        List<string> officers = new List<string>();
         while (isRunning)
         {
             officer = EmployeeHandler.ChooseEmployee();
+            Console.WriteLine("");
+            officers.Add(officer);
             isRunning = false;
         }
         
-        responses.Add(new EmergencyResponse(crime, place, dateTime, officer));
+        responses.Add(new EmergencyResponse(crime, place, dateTime, officers));
     }
     public static void PrintResponses()
     {
@@ -39,7 +42,7 @@ static class CrimeHandler
             Console.WriteLine($"Brott: {responses[i].crime}");
             Console.WriteLine($"Plats: {responses[i].place}");
             Console.WriteLine($"Tid: {responses[i].dateTime.ToString("yyyy-MM-dd HH:mm")}");
-            Console.WriteLine($"Deltagare: {responses[i].officer}");
+            Console.WriteLine($"Deltagare: {string.Join(", ", responses[i].officer)}");
         }
     }
 }
@@ -55,10 +58,10 @@ class EmergencyResponse
 {
     public Crimes crime;
     public string place;
-    public string officer;
+    public List<string> officer;
     public DateTime dateTime; 
 
-    public EmergencyResponse(Crimes crime, string place, DateTime dateTime, string officer)
+    public EmergencyResponse(Crimes crime, string place, DateTime dateTime, List<string> officer)
     {
         this.crime = crime;
         this.place = place;

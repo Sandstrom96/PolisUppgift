@@ -16,7 +16,7 @@ public class Report
 
 static class Reporthandler
 {
-    static List<Report> reports = new List<Report>(); 
+    public static List<Report> reports = new List<Report>(); 
 
     public static void PrintReports()
     {
