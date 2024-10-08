@@ -1,19 +1,3 @@
-public class Report
-{
-    public int ReportNumber { get; set; }
-    public DateTime Date { get; set; }
-    public string Station { get; set; }
-    public string Description {get; set;}
-
-    public Report(int ReportNumber, DateTime Date, string Station, string Description)
-    {
-        this.ReportNumber = ReportNumber;
-        this.Date = Date;
-        this.Station = Station; 
-        this.Description = Description; 
-    }
-}
-
 static class Reporthandler
 {
     public static List<Report> reports = new List<Report>(); 
@@ -56,11 +40,7 @@ static class Reporthandler
             Console.WriteLine("Ogiltigt nummer");
         }
     }
-}
-
-public class MainReports
-{
-    public static void MenuReports()
+    public static void Menu()
     {
         Console.WriteLine("1. Lägg till rapport");
         Console.WriteLine("2. Visa lista över rapporter");
@@ -70,24 +50,39 @@ public class MainReports
         switch(choice)
         {
             case "1": 
-            Reporthandler.AddReport();
+            AddReport();
             break;
 
             case "2":
-            Reporthandler.PrintReports();
+            PrintReports();
             break;
 
             case "3":
-            Reporthandler.Printinforeport();
+            Printinforeport();
             break; 
 
             default: 
             Console.Clear(); 
             Console.WriteLine("Fel val");
-            MenuReports();
+            Menu();
             break;
             
         }
 
+    }
+}
+public class Report
+{
+    public int ReportNumber { get; set; }
+    public DateTime Date { get; set; }
+    public string Station { get; set; }
+    public string Description {get; set;}
+
+    public Report(int ReportNumber, DateTime Date, string Station, string Description)
+    {
+        this.ReportNumber = ReportNumber;
+        this.Date = Date;
+        this.Station = Station; 
+        this.Description = Description; 
     }
 }
