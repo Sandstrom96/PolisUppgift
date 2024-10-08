@@ -1,3 +1,5 @@
+using Microsoft.VisualBasic;
+
 static class Reporthandler
 {
     public static List<Report> reports = new List<Report>(); 
@@ -5,60 +7,110 @@ static class Reporthandler
     public static void PrintReports()
     {
         for(int i = 0; i < reports.Count; i++)
-        {
-            Console.Write($"{i + 1}. "); 
-            Console.WriteLine($"{reports[i].ReportNumber}"); 
+        { 
+            Console.WriteLine($"Rapportnummer: {reports[i].ReportNumber}"); 
         }
+        Console.WriteLine("Tryck en tangent för att fortsätta");
+        Console.ReadKey(true);
     }
         public static void AddReport()
-    {
+    {    
         Console.WriteLine("Lägg till ett rapportnummer");
-        int ReportNumber = int.Parse(Console.ReadLine());
+        int reportNumber = 0;
+        try
+        {
+            int.TryParse(Console.ReadLine(), out int nr);
+            reportNumber = nr;
+        }
+        catch(Exception)
+        {
+            Console.WriteLine("Fel inmatning! Ange ett heltal.");
+        }
+            
         Console.WriteLine("Ange datum i formatet (YYYY-MM-DD HH:MM) för rapporten");
-        DateTime Date = DateTime.Parse(Console.ReadLine());
+        DateTime date = DateTime.Parse(Console.ReadLine());
         Console.WriteLine("Ange vilken station"); 
-        string Station = Console.ReadLine(); 
+        string station = Console.ReadLine(); 
         Console.WriteLine("Ange en beskrivning"); 
-        string Description = Console.ReadLine();  
-        reports.Add(new Report(ReportNumber, Date, Station, Description));
+        string description = Console.ReadLine();  
+        reports.Add(new Report(reportNumber, date, station, description));
     }
     public static void Printinforeport()
     {
-        Console.WriteLine("Ange nummer på rapporten du vill inspektera"); 
-        PrintReports();
-        int index = int.Parse(Console.ReadLine());
-        int choice = index -1; 
+        int index = 0;
+        bool validInput = false;
+        if (reports.Count == 0)
+        {
+            Console.WriteLine("Listan är tom.");            
+        }
+        else
+        {
+            while (!validInput)
+            {
+                Console.WriteLine("----Lista av rapportnummer----");
+                for(int i = 0; i < reports.Count; i++)
+                { 
+                    Console.WriteLine($"Rapportnummer: {reports[i].ReportNumber}"); 
+                }
+                Console.Write("Ange rapportnummer: ");
+                if (int.TryParse(Console.ReadLine(), out int input))
+                {
+                    index = reports.FindIndex(r => r.ReportNumber == input);
+                        
+                    if (index != -1)
+                    {    
+                        validInput = true;
+                    }
+                    else
+                    {
+                        Console.Clear();
+                        Console.WriteLine($"Kan inte hitta rapportnummer: {input} i listan");
+                    }
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Fel inmatning! Ange ett heltal.");
+                    Console.ForegroundColor = ConsoleColor.White;
+                }
+            }
+        }
 
-        if (choice >= 0 && choice < reports.Count)
+        if (index >= 0 && index < reports.Count)
         {
-            Console.WriteLine($"{reports[choice].Date.ToString("yyyy-MM-dd HH:mm")}");
-            Console.WriteLine($"{reports[choice].Station}"); 
-            Console.WriteLine($"{reports[choice].Description}");
+            Console.WriteLine($"{reports[index].Date.ToString("yyyy-MM-dd HH:mm")}");
+            Console.WriteLine($"{reports[index].Station}"); 
+            Console.WriteLine($"{reports[index].Description}");
         }
-        else 
-        {
-            Console.WriteLine("Ogiltigt nummer");
-        }
+        Console.ReadKey(true);
+        
     }
     public static void Menu()
     {
         Console.WriteLine("1. Lägg till rapport");
         Console.WriteLine("2. Visa lista över rapporter");
-        Console.WriteLine("3. Visa fullständig info om rapport");
-        string choice = Console.ReadLine(); 
+        Console.WriteLine("3. Visa fullständig info om en rapport");
+        Console.WriteLine("4. Tillbaka till huvudmenyn");
+        var choice = Console.ReadKey().Key; 
 
         switch(choice)
         {
-            case "1": 
+            case ConsoleKey.D1: 
+            Console.Clear();
             AddReport();
             break;
 
-            case "2":
+            case ConsoleKey.D2:
+            Console.Clear();
             PrintReports();
             break;
 
-            case "3":
+            case ConsoleKey.D3:
+            Console.Clear();
             Printinforeport();
+            break;
+
+            case ConsoleKey.D4:
             break; 
 
             default: 

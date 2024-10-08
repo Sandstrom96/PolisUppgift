@@ -5,57 +5,59 @@ class Program
 {
     static void Main()
     {
-        LoadData();
-        bool IsRunning = true; 
+        //LoadData();
+        /*bool IsRunning = true; 
 
         while (IsRunning)
         {
+            Console.WriteLine("----Polisen----");
             Console.WriteLine("1. Utryckningar");
             Console.WriteLine("2. Rapporter");
             Console.WriteLine("3. Personal");
-            Console.WriteLine("5. Skriv ut utryckning med rapport");
+            //Console.WriteLine("5. Skriv ut utryckning med rapport");
             Console.WriteLine("4. Avsluta");
-            string choice = Console.ReadLine(); 
+            var choice = Console.ReadKey().Key; 
 
             switch(choice)
             {
-                case "1": 
+                case ConsoleKey.D1: 
                 Console.Clear();
-                CrimeHandler.PrintResponses();
+                CrimeHandler.Menu();
                 break;
 
-                case "2":
+                case ConsoleKey.D2:
                 Console.Clear();
-                MainReports.MenuReports();
+                Reporthandler.Menu();
                 break;
 
-                case "3":
+                case ConsoleKey.D3:
                 Console.Clear();
-                MainEmployeehandler.MenuEmployee(); 
+                EmployeeHandler.Menu(); 
                 break; 
 
-                case "4":
+                case ConsoleKey.D4:
                 SaveData();
                 IsRunning = false;
                 break;
 
-                case "5":
-                CrimeHandler.AddCrime();
-                Console.WriteLine("Lägg till rapport");
-                //Reporthandler.AddReport();
-                break;
+                //case ConsoleKey.D5:
+                //break;
 
                 default: 
                 Console.Clear(); 
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Fel val");
+                Console.ForegroundColor = ConsoleColor.White;
                 continue;
                 
             }
 
-        }
+        }*/
+        while (true)
+        Reporthandler.Menu();
 
     }
-    static void LoadData()
+    /*static void LoadData()
     {
         EmployeeHandler.employees = JsonSerializer.Deserialize<List<Employee>>(File.ReadAllText("Employees.json"));
         CrimeHandler.responses = JsonSerializer.Deserialize<List<EmergencyResponse>>(File.ReadAllText("Responses.json"));
@@ -67,5 +69,5 @@ class Program
         File.WriteAllText("Reports.json", JsonSerializer.Serialize(Reporthandler.reports));
         File.WriteAllText("Responses.json", JsonSerializer.Serialize(CrimeHandler.responses));
         File.WriteAllText("Employees.json", JsonSerializer.Serialize(EmployeeHandler.employees));
-    }
+    }*/
 }

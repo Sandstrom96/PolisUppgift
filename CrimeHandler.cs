@@ -13,22 +13,82 @@ static class CrimeHandler
     }
     public static void AddCrime()
     {
-        bool isRunning = true;
-        Console.WriteLine("Välj typ av brott");
-        PrintCrimeType();
-        Crimes crime = Enum.Parse<Crimes>(Console.ReadLine());
-        Console.Write("Ange plats: ");
-        string place = Console.ReadLine();
+        bool validInput = false;
+        Crimes crime = 0;
+        while (!validInput)
+        {
+            Console.WriteLine("Välj typ av brott");
+            PrintCrimeType();
+            if (int.TryParse(Console.ReadLine(), out int choice))
+            {
+                if (choice > 0 && choice <= Enum.GetValues(typeof (Crimes)).Length)
+                {
+                    crime = (Crimes)choice;
+                    validInput = true;
+                }
+                else
+                {
+                    Console.Clear();
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Fel inmatning!");
+                    Console.ForegroundColor = ConsoleColor.White;
+                }
+            }
+        }
+
+        validInput = false;
+        string place = "";
+        while (!validInput)
+        {
+            Console.Write("Ange plats: ");
+            place = Console.ReadLine();
+
+            if (string.IsNullOrWhiteSpace(place))
+            {
+                Console.WriteLine("Platsen kan ej vara tom");
+            }
+            else if (!System.Text.RegularExpressions.Regex.IsMatch(place, @"^[a-öA-Ö0-9]+$"))
+            {
+                Console.WriteLine("Kan endast innehålla bokstäver/siffror. Försök igen!");
+            }
+            else
+            {
+                validInput = true;
+            }
+        }
+        
         Console.Write("Ange tid i formatet(YYYY-MM-DD HH:MM): ");
         DateTime dateTime = DateTime.Parse(Console.ReadLine());
-        Console.WriteLine("Vilka deltog?");
+
         List<string> officers = new List<string>();
+        bool isRunning = true;
         while (isRunning)
         {
+            Console.WriteLine("Vilka deltog?");
             string officer = EmployeeHandler.ChooseEmployee();
-            Console.WriteLine("");
             officers.Add(officer);
-            isRunning = false;
+            validInput = false;
+            while (!validInput)
+            {
+                Console.WriteLine("Vill du lägga till fler? j/n");
+                string choice = Console.ReadLine();
+                if (choice.ToLower() == "j")
+                {
+                    validInput = true;
+                }
+                else if (choice.ToLower() == "n")
+                {
+                    isRunning = false;
+                    validInput = true;
+                }
+                else
+                {
+                    Console.Clear();
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Fel inmatning! Försök igen.");
+                    Console.ForegroundColor = ConsoleColor.White;
+                }
+            }
         }
         
         responses.Add(new EmergencyResponse(crime, place, dateTime, officers));
@@ -46,23 +106,25 @@ static class CrimeHandler
     }
         public static void Menu()
     {
-        Console.WriteLine("2. lägg till brott");
-        Console.WriteLine("3. Visa lista över utryckningar");
-        string choice = Console.ReadLine();
+        Console.WriteLine("1. lägg till brott");
+        Console.WriteLine("2. Visa lista över utryckningar");
+        var choice = Console.ReadKey().Key;
 
         switch (choice)
         {
-            case "1":
-            CrimeHandler.AddCrime(); 
+            case ConsoleKey.D1:
+            AddCrime(); 
             break;
 
-            case "2":
-            CrimeHandler.PrintResponses();
+            case ConsoleKey.D2:
+            PrintResponses();
             break;
 
             default:
             Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("Fel val");
+            Console.ForegroundColor = ConsoleColor.White;
             Menu();
             break;
 
