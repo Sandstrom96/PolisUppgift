@@ -22,11 +22,10 @@ static class CrimeHandler
         Console.Write("Ange tid i formatet(YYYY-MM-DD HH:MM): ");
         DateTime dateTime = DateTime.Parse(Console.ReadLine());
         Console.WriteLine("Vilka deltog?");
-        string officer = "";
         List<string> officers = new List<string>();
         while (isRunning)
         {
-            officer = EmployeeHandler.ChooseEmployee();
+            string officer = EmployeeHandler.ChooseEmployee();
             Console.WriteLine("");
             officers.Add(officer);
             isRunning = false;
@@ -43,6 +42,30 @@ static class CrimeHandler
             Console.WriteLine($"Plats: {responses[i].place}");
             Console.WriteLine($"Tid: {responses[i].dateTime.ToString("yyyy-MM-dd HH:mm")}");
             Console.WriteLine($"Deltagare: {string.Join(", ", responses[i].officer)}");
+        }
+    }
+        public static void Menu()
+    {
+        Console.WriteLine("2. lägg till brott");
+        Console.WriteLine("3. Visa lista över utryckningar");
+        string choice = Console.ReadLine();
+
+        switch (choice)
+        {
+            case "1":
+            CrimeHandler.AddCrime(); 
+            break;
+
+            case "2":
+            CrimeHandler.PrintResponses();
+            break;
+
+            default:
+            Console.Clear();
+            Console.WriteLine("Fel val");
+            Menu();
+            break;
+
         }
     }
 }
