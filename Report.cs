@@ -1,8 +1,8 @@
 public class Report
 {
-    public int ReportNumber;
-    public DateTime Date;
-    public string Station;
+    public int ReportNumber { get; set; }
+    public DateTime Date { get; set; }
+    public string Station { get; set; }
     public string Description {get; set;}
 
     public Report(int ReportNumber, DateTime Date, string Station, string Description)
@@ -62,41 +62,31 @@ public class MainReports
 {
     public static void MenuReports()
     {
-        bool IsRunning = true; 
+        Console.WriteLine("1. Lägg till rapport");
+        Console.WriteLine("2. Visa lista över rapporter");
+        Console.WriteLine("3. Visa fullständig info om rapport");
+        string choice = Console.ReadLine(); 
 
-        while (IsRunning)
+        switch(choice)
         {
-            Console.WriteLine("1. Lägg till rapport");
-            Console.WriteLine("2. Visa lista över rapporter");
-            Console.WriteLine("3. Visa fullständig info om rapport");
-            Console.WriteLine("4. Avsluta");
-            string choice = Console.ReadLine(); 
+            case "1": 
+            Reporthandler.AddReport();
+            break;
 
-            switch(choice)
-            {
-                case "1": 
-                Reporthandler.AddReport();
-                break;
+            case "2":
+            Reporthandler.PrintReports();
+            break;
 
-                case "2":
-                Reporthandler.PrintReports();
-                break;
+            case "3":
+            Reporthandler.Printinforeport();
+            break; 
 
-                case "3":
-                Reporthandler.Printinforeport();
-                break; 
-
-                case "4":
-                IsRunning = false;
-                break;
-
-                default: 
-                Console.Clear(); 
-                Console.WriteLine("Fel val");
-                continue;
-                
-            }
-
+            default: 
+            Console.Clear(); 
+            Console.WriteLine("Fel val");
+            MenuReports();
+            break;
+            
         }
 
     }

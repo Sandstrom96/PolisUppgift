@@ -17,7 +17,6 @@ static class EmployeeHandler
     }
     public static void ListEmployees()
     {
-        employees.Add(new Employee("Andreas", "Sandström", 2000));
         for (int i = 0; i < employees.Count; i++)
         {
             Console.WriteLine($"{employees[i].firstName} {employees[i].lastName} Tjänstnummer: {employees[i].employeeNumber}");
@@ -42,9 +41,9 @@ static class EmployeeHandler
 }
 class Employee
 {
-    public string firstName;
-    public string lastName;
-    public int employeeNumber;
+    public string firstName { get; set; }
+    public string lastName { get; set; }
+    public int employeeNumber { get; set; }
 
     public Employee (string firstName, string lastName, int employeeNumber)
     {
@@ -57,13 +56,8 @@ public class MainEmployeehandler
 {
     public static void MenuEmployee()
     {
-        bool IsRunning = true; 
-
-        while (IsRunning)
-        {
             Console.WriteLine("1. Lägg till en ny anställd");
-            Console.WriteLine("2. Visa alla anställda"); 
-            Console.WriteLine("3. Visa info om anställd");
+            Console.WriteLine("2. Visa alla anställda");
             string choice = Console.ReadLine();
 
             switch (choice)
@@ -73,22 +67,15 @@ public class MainEmployeehandler
                 break;
                 
                 case "2":
+                Console.WriteLine("----Lista av personal----");
                 EmployeeHandler.ListEmployees();
-                break;
-
-                case "3": 
-                EmployeeHandler.ChooseEmployee();
-                break;
-
-                case "4":
-                IsRunning = false; 
                 break;
 
                 default:
                 Console.Clear();
                 Console.WriteLine("Fel val");
-                continue;
+                MenuEmployee();
+                break;
             }
-        }
     }
 }

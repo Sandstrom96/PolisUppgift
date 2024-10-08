@@ -56,10 +56,10 @@ enum Crimes
     }
 class EmergencyResponse
 {
-    public Crimes crime;
-    public string place;
-    public List<string> officer;
-    public DateTime dateTime; 
+    public Crimes crime { get; set; }
+    public string place { get; set; }
+    public List<string> officer { get; set; }
+    public DateTime dateTime { get; set; } 
 
     public EmergencyResponse(Crimes crime, string place, DateTime dateTime, List<string> officer)
     {

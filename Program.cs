@@ -1,9 +1,11 @@
 ﻿using Microsoft.Win32.SafeHandles;
+using System.Text.Json;
 
 class Program
 {
     static void Main()
     {
+        LoadData();
         bool IsRunning = true; 
 
         while (IsRunning)
@@ -33,6 +35,7 @@ class Program
                 break; 
 
                 case "4":
+                SaveData();
                 IsRunning = false;
                 break;
 
@@ -51,5 +54,18 @@ class Program
 
         }
 
+    }
+    static void LoadData()
+    {
+        EmployeeHandler.employees = JsonSerializer.Deserialize<List<Employee>>(File.ReadAllText("Employees.json"));
+        CrimeHandler.responses = JsonSerializer.Deserialize<List<EmergencyResponse>>(File.ReadAllText("Responses.json"));
+        Reporthandler.reports = JsonSerializer.Deserialize<List<Report>>(File.ReadAllText("Reports.json"));
+    }
+
+    static void SaveData()
+    {
+        File.WriteAllText("Reports.json", JsonSerializer.Serialize(Reporthandler.reports));
+        File.WriteAllText("Responses.json", JsonSerializer.Serialize(CrimeHandler.responses));
+        File.WriteAllText("Employees.json", JsonSerializer.Serialize(EmployeeHandler.employees));
     }
 }
