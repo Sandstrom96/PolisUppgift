@@ -33,6 +33,7 @@ static class EmployeeHandler
                 validInput = true;
             }
         }
+
         validInput = false;
         while (!validInput)
         {
@@ -52,6 +53,7 @@ static class EmployeeHandler
                 validInput = true;
             }
         }
+
         int employeeNumber = rnd.Next(1000,10000);
         for (int i = 0; i < employees.Count; i++)
         {
@@ -60,12 +62,11 @@ static class EmployeeHandler
                 employeeNumber = rnd.Next(1000,10000);
             }
         }
+        
         Console.WriteLine($"Tjänstnummer: {employeeNumber}");
-        Console.WriteLine("Klicka på någon tanget för att fortsätta");
-        Console.ReadKey(true);
-            
         employees.Add(new Employee(firstName, lastName, employeeNumber));
     }
+    
     public static void ListEmployees()
     {
         if (employees.Count == 0)
@@ -80,6 +81,7 @@ static class EmployeeHandler
             }
         }
     }
+    
     public static string ChooseEmployee()
     {
         if (employees.Count == 0)
@@ -118,32 +120,43 @@ static class EmployeeHandler
             }
         }
     }
+    
     public static void Menu()
     {
-        Console.WriteLine("1. Lägg till en ny anställd");
-        Console.WriteLine("2. Visa alla anställda");
-        var choice = Console.ReadKey().Key;
+        bool validInput = false;
 
-        switch (choice)
+        while (!validInput)
         {
-            case ConsoleKey.D1: 
-            Console.Clear();
-            AddEmployee();
-            break;
+            Console.WriteLine("1. Lägg till en ny anställd");
+            Console.WriteLine("2. Visa alla anställda");
+            var choice = Console.ReadKey().Key;
             
-            case ConsoleKey.D2:
-            Console.Clear();
-            Console.WriteLine("----Lista av personal----");
-            ListEmployees();
-            break;
+            switch (choice)
+            {
+                case ConsoleKey.D1: 
+                    Console.Clear();
+                    AddEmployee();
+                    validInput = true;
+                    Console.WriteLine("Klicka på någon tanget för att fortsätta");
+                    Console.ReadKey(true);
+                    break;
+                
+                case ConsoleKey.D2:
+                    Console.Clear();
+                    Console.WriteLine("----Lista av personal----");
+                    ListEmployees();
+                    validInput = true;
+                    Console.WriteLine("Klicka på någon tanget för att fortsätta");
+                    Console.ReadKey(true);
+                    break;
 
-            default:
-            Console.Clear();
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("Fel val");
-            Console.ForegroundColor = ConsoleColor.White;
-            Menu();
-            break;
+                default:
+                    Console.Clear();
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Fel val");
+                    Console.ForegroundColor = ConsoleColor.White;
+                    break;
+            }
         }
     }
 }

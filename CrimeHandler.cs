@@ -106,28 +106,34 @@ static class CrimeHandler
     }
         public static void Menu()
     {
-        Console.WriteLine("1. lägg till brott");
-        Console.WriteLine("2. Visa lista över utryckningar");
-        var choice = Console.ReadKey().Key;
+        bool validInput = false;
 
-        switch (choice)
+        while (!validInput)
         {
-            case ConsoleKey.D1:
-            AddCrime(); 
-            break;
+            Console.WriteLine("1. lägg till brott");
+            Console.WriteLine("2. Visa lista över utryckningar");
+            var choice = Console.ReadKey().Key;
 
-            case ConsoleKey.D2:
-            PrintResponses();
-            break;
+            switch (choice)
+            {
+                case ConsoleKey.D1:
+                    AddCrime();
+                    validInput = true; 
+                    break;
 
-            default:
-            Console.Clear();
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("Fel val");
-            Console.ForegroundColor = ConsoleColor.White;
-            Menu();
-            break;
+                case ConsoleKey.D2:
+                    PrintResponses();
+                    validInput = true;
+                    break;
 
+                default:
+                    Console.Clear();
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Fel val");
+                    Console.ForegroundColor = ConsoleColor.White;
+                    break;
+
+            }
         }
     }
 }

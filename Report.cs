@@ -87,40 +87,47 @@ static class Reporthandler
     }
     public static void Menu()
     {
-        Console.WriteLine("1. Lägg till rapport");
-        Console.WriteLine("2. Visa lista över rapporter");
-        Console.WriteLine("3. Visa fullständig info om en rapport");
-        Console.WriteLine("4. Tillbaka till huvudmenyn");
-        var choice = Console.ReadKey().Key; 
+        bool validInput = false;
 
-        switch(choice)
+        while (!validInput)
         {
-            case ConsoleKey.D1: 
-            Console.Clear();
-            AddReport();
-            break;
+            Console.WriteLine("1. Lägg till rapport");
+            Console.WriteLine("2. Visa lista över rapporter");
+            Console.WriteLine("3. Visa fullständig info om en rapport");
+            Console.WriteLine("4. Tillbaka till huvudmenyn");
+            var choice = Console.ReadKey().Key; 
 
-            case ConsoleKey.D2:
-            Console.Clear();
-            PrintReports();
-            break;
+            switch(choice)
+            {
+                case ConsoleKey.D1: 
+                    Console.Clear();
+                    AddReport();
+                    validInput = true;
+                    break;
 
-            case ConsoleKey.D3:
-            Console.Clear();
-            Printinforeport();
-            break;
+                case ConsoleKey.D2:
+                    Console.Clear();
+                    PrintReports();
+                    validInput = true;
+                    break;
 
-            case ConsoleKey.D4:
-            break; 
+                case ConsoleKey.D3:
+                    Console.Clear();
+                    Printinforeport();
+                    validInput = true;
+                    break;
 
-            default: 
-            Console.Clear(); 
-            Console.WriteLine("Fel val");
-            Menu();
-            break;
-            
+                case ConsoleKey.D4:
+                validInput = true;
+                    break;
+
+                default: 
+                    Console.Clear(); 
+                    Console.WriteLine("Fel val");
+                    break;
+                
+            }
         }
-
     }
 }
 public class Report
